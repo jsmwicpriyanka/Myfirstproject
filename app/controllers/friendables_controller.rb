@@ -1,10 +1,10 @@
 class FriendablesController < ApplicationController
 	before_action :authenticate_user!
 	# after_save :created_friendship
-
 	def show
 		@friends = Friendable.all
 	end
+
 
 	def index
 		friendables = Friendable.where(:sender_id => current_user.id)
