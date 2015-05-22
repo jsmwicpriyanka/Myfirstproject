@@ -1,0 +1,9 @@
+<%= image_tag("images.jpg") %>
+<b><h1>Home</h1><b>
+
+<% if current_user.profile.present? %>
+	<%= link_to 'Edit profile', edit_profile_path(current_user.profile) %>
+<% else %>
+	<h2><%= link_to 'My Profile', new_profile_path %></h2>
+<%end if user_signed_in?%>
+

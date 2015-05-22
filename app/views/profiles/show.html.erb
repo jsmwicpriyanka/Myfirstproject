@@ -1,0 +1,31 @@
+<h><p><b>User Name:</b><%= current_user.email%></p></h>
+<%= image_tag @profile.picture.url %>
+<p>
+  <strong>name</strong>
+  <%= @profile.name%>
+</p>
+<p>
+  <strong>work</strong>
+  <%= @profile.work%>
+</p>
+ 
+<p>
+  <strong>gender</strong>
+  <%= @profile.gender %>
+</p>
+<p>
+  <strong>birth_date</strong>
+  <%= @profile.birth_date %>
+</p>
+<p>
+  <strong>relationship_status</strong>
+  <%= @profile.relationship_status %>
+</p>
+<p>
+  <strong>name_type</strong>
+  <%= @profile.name_type %>
+</p>
+<p>
+  <strong>religious_view</strong>
+  <%= @profile.religious_view %>
+</p>

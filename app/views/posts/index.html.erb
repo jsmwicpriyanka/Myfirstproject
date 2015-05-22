@@ -1,0 +1,80 @@
+<h><p><b>User Name : </b><%= current_user.username%></p></h>
+<table class="table" style="width:70%">
+<h1>Posts</h1><hr>
+  <% @posts.each do |post| %>
+    <div class="row">
+      <div class="col-sm-9" style="background-color: #40E0D0;">
+        <% if post.user.profile.present? %>
+          <%= image_tag(post.user.profile.picture.url(:thumb)) %>
+        <h style="color:black"><b>Status:<small><b style="color:blue">
+        <%= post.status %></small></b></b></h><br>
+        <h style="color:blue"> peoples like </h>
+            <%= post.likes.count %>
+        
+        <div>
+        <% like = current_user.already_likes?(post) %>
+              <% if like.present? %>
+                 <%= link_to  'Unlike', destroy_path(like.id),:method => :delete %> 
+              <%else%>
+                <%= link_to 'like', post_like_path(post) %>  
+              <%end%>
+        </div>
+        <%end %>
+        <%= post.created_at %><hr/ >
+          <div class="row">
+          <div class="col-xs-8 col-sm-6" style="background-color: #dedef8;">
+           <%#= link_to 'comments', post_path(post), :class=>"btn btn-primary btn-sm"%>
+            
+           <% post.comments.each do |comment| %>
+            
+            
+              <p>
+                <strong>Comment:</strong>
+                <%= comment.body %>
+                
+                <%#= render 'likes/like_button', :like => comment.like, :likeable => comment %>
+               
+              </p>
+              <p>
+                <strong>Commenter:</strong>
+                <%= comment.user.username %>
+              </p>
+              <h style="color:blue"> Peoples like :  <%= comment.likes.count %></h>
+              <div>
+              <% like = current_user.already_likes?(comment) %>
+              <% if like.present? %>
+                 <%= link_to  'Unlike', destroy_path(like.id),:method => :delete %> 
+              <%else%>
+                <%= link_to 'like', comment_like_path(comment) %>  
+              <%end%>
+              </div><hr />
+            <% end %>
+
+
+            <h>Add a comment:</h>
+            <%= form_for([post, post.comments.build]) do |f| %>
+              <p>
+                <%= f.label :body %>
+                <%= f.text_area :body %>
+                <%= f.submit  %>
+              </p> 
+            <!-- <p>
+              <button type="button" class="btn btn-primary btn-sm">
+              <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Like
+              </button>                
+            </p>  -->
+            <% end %>
+          </div>
+          <% if post.user_id == current_user.id %>
+          <div class="col-xs-4 col-sm-6">
+            <%= link_to 'Destroy', post_path(post),
+                  method: :delete,
+                    data: { confirm: 'Are you sure priyanka?' }, :class=>"btn btn-primary btn-sm"%>
+            <%= link_to 'Edit', edit_post_path(post),:class=>"btn btn-primary btn-sm" %>        
+          <%end%>          
+          </div>
+        </div>
+      </div>
+    </div><br><hr>
+  <%end%>
+</table>

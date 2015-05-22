@@ -1,0 +1,23 @@
+<table>
+<th> Friends List</th>
+
+
+<%Friendable.all.each do |friend|%>
+<tr>
+<%if (friend.sender_id==current_user.id &&friend.accepted==true)%>
+  <td><%= friend.receiver.username %></td>
+  </tr>
+  <%end%>
+  <%end%>
+  </table>
+
+<table>
+<tr>
+<%Friendable.all.each do |friend|%>
+<%if (friend.receiver_id==current_user.id &&friend.accepted==true)%>
+ <td> <%= friend.sender.username %></td>
+  </tr>
+  <%end%>
+<%end%>
+
+</table>

@@ -1,0 +1,15 @@
+
+<p> <%= link_to "Inbox", recieve_message_path, :class=>"btn btn-primary btn-medium" %></p>
+<p> <%= link_to "sentbox",  sent_message_path, :class=>"btn btn-primary btn-medium" %></p>
+<table style="width:50%">
+	<% @users.each do |user| %>
+		<% unless current_user.id == user.id %>
+			<tr>
+		  	<td><%= user.username %></td>
+		  	<td><%= link_to "message" , new_message_path(:user_id=>user.id), :class=>"btn btn-primary btn-large"%>
+		  	<hr>
+		  	</td>
+			</tr>
+		<%end%>          
+	<%end%>
+</table>

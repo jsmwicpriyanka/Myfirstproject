@@ -1,0 +1,39 @@
+<% flash.each do |name, msg| %>
+  <div class="alert <%= "alert-#{name}" %>">
+    <%= msg %>
+  </div>
+<% end %>
+
+<h1>posts like or not</h1>
+
+<% @post.each do |post| %>
+  <tr>
+    <td><%= post.status %></td>
+      <%= form_tag likes_path do %>
+        <%= hidden_field_tag 'post_id', post.id %>       
+        <% if current_user.already_likes?(post)%>
+          <td><%= submit_tag  "Unlike", :class => "like_button" %></td> 
+        <%else%>
+          <td><%= submit_tag "like ", :class => "like_button" %></td>  
+        <%end%>
+         </tr> 
+      <%end%>
+
+<% post.comments.each do |comment| %>
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.user.username %>
+  </p>
+  <div>
+    <% if current_user.already_likes?(comment)%>
+      <%= link_to  'Unlike', destroy_path, html: { method: :delete } %> 
+    <%else%>
+      <%= link_to 'like' %>  
+    <%end%>
+  </div><hr />
+<% end %>
+<% end %>

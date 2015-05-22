@@ -1,0 +1,36 @@
+<h><p><b>User Name:</b><%= current_user.email%></p></h>
+<br><%= link_to 'posts', posts_path %><br>
+
+<p>
+  <b><strong>status:</strong><b>
+  <%= @post.status %>
+
+</p>
+ 
+
+<h2>Comments</h2>
+<% @post.comments.each do |comment| %>
+  
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+  <strong>Commenter:</strong>
+  <%= comment.user.username %>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+  
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit  %>
+    
+
+<% end %>
+ 
+<%= link_to 'back', posts_path %><br>
+<%= link_to 'home page', root_path %>

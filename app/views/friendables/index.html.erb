@@ -1,0 +1,33 @@
+ <h><p><b>User Name : </b><%= current_user.username%></p></h>
+
+<table style="width:50%">
+	<h2> Friends Requests </h2>
+	<% @reciver.each do |friend| %>
+		<tr>
+			<td><%= friend.sender.username %></td>
+			<td><%= link_to 'accept', accept_request_path(friend.sender.id), :class=>"btn btn-primary btn-sm" %>
+
+			</td>
+			<td><%= link_to 'Reject', reject_request_path(friend),          
+	                    :class=>"btn btn-primary btn-sm"%></td>
+			
+		</tr>	
+	<%end%>
+</table>
+
+
+<h2>Find Friends For Request</h2>
+<table style="width:50%">
+	<% @users.each do |user| %>
+		<% unless current_user.id == user.id %>
+			<tr>
+		  	<td><%= user.username %></td>
+		  	<td><%= link_to "Add Friend" , send_request_path(user.id), :class=>"btn btn-primary btn-sm"%>
+		  	<hr>
+		  	</td>
+			</tr>
+		<%end%>          
+	<%end%>
+</table>
+
+
